@@ -1,5 +1,58 @@
 # rulp
-The crate is currently on version 0.1.0
+The crate is currently on version 0.1.0a
+
+```toml
+[build]
+target = "wasm32-wasi"
+```
+
+```rust
+extern crate rulp;
+
+use rulp::builder::{Builder, BuilderBase};
+use rulp::parser::{Parser, ParserBase};
+use rulp::solver::{SimplexSolver, SolverBase};
+
+use std::io::{self, Read};
+
+fn main() {
+    let mut buffer = String::new();
+    let stdin = io::stdin();
+    let mut handle = stdin.lock();
+    handle.read_to_string(&mut buffer).unwrap();
+    let text_problem = buffer;
+
+    let builder = Builder::new();
+    let lp = Parser::lp_from_text(&text_problem, builder);
+    println!("{}", lp);
+    let solver = SimplexSolver::new(lp.clone());
+    let solution = solver.solve();
+
+    let vars = lp.vars;
+    let obj = solution.objective;
+    let mut vals = solution.values.unwrap();
+
+    for it in vars.iter().zip(vals.iter_mut()) {
+        let (ai, bi) = it;
+        println!("{}:\t\t{:?}", ai, bi);
+    }
+
+    print!("\n{}\n", obj.unwrap());
+}
+
+```
+
+```
+wasmer run ./target/wawasmer run ./target/wasm32-wasi/debug/learn-lp-rust-solver.wasm < prob.lp
+```
+
+# This is a FORK 🍴
+
+This repo makes some slight changes (remove CLI app) so this can be compiled to WASM. Thanks to the great work done by Philip Meyers and Andrew Mcconnell as part of a school project in 2017 the underlying code allows us to solve LP problems quickly. All were doing is adding a new way to use this tool!
+
+
+# Original Repo Docs
+
 Read the [API Documentation](https://ajm012.github.io/rulp/) to learn more.
 
 ## Summary

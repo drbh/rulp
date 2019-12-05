@@ -1,9 +1,9 @@
 [package]
 name = "rulp"
-version = "0.1.0"
-authors = ["feelmyears <philipmeyers2017@u.northwestern.edu>", "ajm012 <andrewmcconnell2016@u.northwestern.edu>"]
+version = "0.1.1"
+authors = ["drbh <david.richard.holtz@gmail.com>", "feelmyears <philipmeyers2017@u.northwestern.edu>", "ajm012 <andrewmcconnell2016@u.northwestern.edu>"]
 description = "A library providing functionality to parse, create and solve linear programming problems."
-repository = "https://github.com/feelmyears/rulp"
+repository = "https://github.com/drbh/rulp"
 license = "MIT"
 keywords = ["linear-program","linear-programming","tableau","simplex"]
 readme = "README.md"
@@ -12,9 +12,4 @@ readme = "README.md"
 rulinalg="0.4.2"
 regex = "0.2"
 assert_approx_eq = "0.2.2"
-clap = "~2.19.0"
 approx = "0.1.1"
-
-[[bin]]
-doc = false
-name = "rulp"
